@@ -1,7 +1,27 @@
 [project]
 name = "auto-task-manager"
 version = "0.1.0"
+
+description = "Personal task manager bot"
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+dependencies = [
+    "python-telegram-bot>=20,<21",
+    "SQLAlchemy>=2.0",
+    "asyncpg>=0.27",
+    "python-dateutil>=2.8"
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
+
