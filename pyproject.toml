@@ -1,6 +1,7 @@
 [project]
 name = "auto-task-manager"
 version = "0.1.0"
+
 description = "Personal task manager bot"
 requires-python = ">=3.12"
 readme = "README.md"
@@ -18,3 +19,9 @@ dev = ["pytest"]
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
