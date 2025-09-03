@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: bot_user
+      POSTGRES_PASSWORD: bot_password
+      POSTGRES_DB: bot_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://bot_user:bot_password@db:5432/bot_db
+    volumes:
+      - .:/app
+    command: uv run python src/auto_task_manager/main.py
+    ports:
+      - "8000:8000"
+volumes:
+  postgres_data:
