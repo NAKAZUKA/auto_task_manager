@@ -10,4 +10,4 @@ RUN uv sync --python=3.12 || true
 
 COPY src ./src
 
-CMD ["uv", "run", "python", "src/auto_task_manager/main.py"]
+CMD ["uv", "run", "python", "-m", "auto_task_manager.main"]

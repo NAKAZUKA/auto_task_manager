@@ -196,7 +196,7 @@ async def save_task(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 when=task.due_date,
                 chat_id=update.effective_chat.id,
                 data={"title": task.title, "kind": "due"},
-                data={"title": task.title},
+
             )
     await update.message.reply_text("Задача сохранена")
 
@@ -209,6 +209,7 @@ async def reminder(context: ContextTypes.DEFAULT_TYPE) -> None:
     else:
         text = f"Дедлайн: {job.data['title']}"
     await context.bot.send_message(job.chat_id, text)
+
     await context.bot.send_message(job.chat_id, f"Напоминание: {job.data['title']}")
 
 
