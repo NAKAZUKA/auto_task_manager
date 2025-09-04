@@ -20,14 +20,8 @@ services:
       - .:/app
     command: uv run python src/auto_task_manager/main.py
     environment:
-codex/design-personal-task-management-bot-ucw49n
       DATABASE_URL: postgresql+asyncpg://bot_user:bot_password@db:5432/bot_db
 
-      DATABASE_URL: postgres://bot_user:bot_password@db:5432/bot_db
-main
-    volumes:
-      - .:/app
-    command: uv run python src/auto_task_manager/main.py
     ports:
       - "8000:8000"
 volumes:
