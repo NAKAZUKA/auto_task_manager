@@ -1,9 +1,7 @@
 import asyncio
 import logging
 import os
-
 from dotenv import load_dotenv
-
 from .bot import build_application
 from .db import init_db
 
@@ -18,6 +16,9 @@ def main() -> None:
     asyncio.run(init_db())
     app = build_application(token)
     app.run_polling()
+def main() -> None:
+    print("Auto Task Manager skeleton")
+main
 
 
 if __name__ == "__main__":
