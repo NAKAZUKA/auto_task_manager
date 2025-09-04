@@ -183,11 +183,19 @@ async def save_task(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         )
         session.add(task)
         await session.commit()
+        if task.start_date:
+            context.job_queue.run_once(
+                reminder,
+                when=task.start_date,
+                chat_id=update.effective_chat.id,
+                data={"title": task.title, "kind": "start"},
+            )
         if task.due_date:
             context.job_queue.run_once(
                 reminder,
                 when=task.due_date,
                 chat_id=update.effective_chat.id,
+                data={"title": task.title, "kind": "due"},
                 data={"title": task.title},
             )
     await update.message.reply_text("Задача сохранена")
@@ -195,6 +203,12 @@ async def save_task(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def reminder(context: ContextTypes.DEFAULT_TYPE) -> None:
     job = context.job
+    kind = job.data.get("kind", "due")
+    if kind == "start":
+        text = f"Пора начать: {job.data['title']}"
+    else:
+        text = f"Дедлайн: {job.data['title']}"
+    await context.bot.send_message(job.chat_id, text)
     await context.bot.send_message(job.chat_id, f"Напоминание: {job.data['title']}")
 
 
