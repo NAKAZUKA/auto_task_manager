@@ -4,6 +4,12 @@ services:
     image: postgres:16
     restart: always
     env_file: .env
+
+    environment:
+      POSTGRES_USER: bot_user
+      POSTGRES_PASSWORD: bot_password
+      POSTGRES_DB: bot_db
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
   app:
@@ -13,6 +19,12 @@ services:
     env_file: .env
     volumes:
       - .:/app
+
     command: uv run python -m auto_task_manager.main
+    environment:
+      DATABASE_URL: postgresql+asyncpg://bot_user:bot_password@db:5432/bot_db
+
+    ports:
+      - "8000:8000"
 volumes:
   postgres_data:
